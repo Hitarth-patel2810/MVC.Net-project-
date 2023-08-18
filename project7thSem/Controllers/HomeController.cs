@@ -47,11 +47,11 @@ namespace project7thSem.Controllers
 
                 return View(model);
         }
-        [HttpPost]
-        public IActionResult search(string Search,int page)
+        [Route("Home/search/{Search?}")]
+        public IActionResult search(string Search,int page = 1)
         {
             var model = new SearchResult();
-            var query = _connectionClass.Select($"SELECT ROW_NUMBER() over(order by gi.TenderAmount DESC) \r\nas Rownumber,OurRefNo,TenderAmount,SubmDate,WorkDesc,AgencyName,\r\n(SELECT Name fROM Country_Mast cm WHERE cm.CountryID=gi.CountryId) \r\nas Countryname FROM GlobalFreshTenderInfo gi  where contains(SearchText,'\"{Search}\"') ORDER BY TenderAmount DESC");
+            var query = _connectionClass.Select($"SELECT ROW_NUMBER() over(order by gi.TenderAmount DESC) \r\nas Rownumber,OurRefNo,TenderAmount,SubmDate,WorkDesc,AgencyName,\r\n(SELECT Name fROM Country_Mast cm WHERE cm.CountryID=gi.CountryId) \r\nas Countryname FROM GlobalFreshTenderInfo gi  where FREETEXT(SearchText,'\"{Search}\"') ORDER BY TenderAmount DESC");
             model.TenderDetails = Helper.ConvertDataTable<DataList>(query);
 
             int TenderCount = model.TenderDetails.Count();

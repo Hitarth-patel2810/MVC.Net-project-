@@ -1,0 +1,238 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model SearchResult
+@using ConnectionLibrary.Model;
+@{
+    ViewData["Title"] = "Home Page";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<header class="header fixed-top">
+    <nav>
+        <div class="row">
+            <div class="container">
+                <div class="row" style="margin: 15px;">
+                    <a class="float-left col-md-3" href="/">
+                        <img src="~/TenderDetail.png" asp-controller="Home" asp-action="Index" style="width: 85%;" />
+                    </a>
+                    <div class="col-md-2"></div>
+                    <div class="row col-md-7" height="50px">
+                        <div class=" col-md-3  p-0 ">
+                            <input list="brow" placeholder="Select Country" class="form-control" id="exampleFormControlSelect1">
+                            <datalist id="brow">
+                                <option>Saudi Arabia</option>
+                                <option>United Arab Emirates</option>
+                                <option>Russia</option>
+                                <option>Oman</option>
+                                <option>Palestinian Territory Occupied</option>
+                                <option>Korea South</option>
+                                <option>Taiwan</option>
+                                <option>Qatar</option>
+                                <option>Israel</option>
+                                <option>Ethiopia</option>
+                                <option>Malaysia</option>
+                                <option>Pakistan</option>
+                                <option>Jordan</option>
+                                <option>Indonesia</option>
+                                <option>Germany</option>
+                                <option>Slovenia</option>
+                                <option>North Macedonia</option>
+                                <option>Canada</option>
+                                <option>Philippines</option>
+                                <option>Bangladesh</option>
+                                <option>France</option>
+                                <option>United States</option>
+                                <option>Lithuania</option>
+                                <option>Poland</option>
+                                <option>Italy</option>
+                                <option>Ireland</option>
+                                <option>Spain</option>
+                                <option>Czech Republic</option>
+                                <option>Croatia (Hrvatska)</option>
+                                <option>Netherlands The</option>
+                                <option>Bulgaria</option>
+                                <option>Austria</option>
+                                <option>Belgium</option>
+                                <option>Latvia</option>
+                                <option>Hungary</option>
+                                <option>Ukraine</option>
+                                <option>Portugal</option>
+                                <option>Norway</option>
+                                <option>Malta</option>
+                                <option>Kenya</option>
+                                <option>Afghanistan</option>
+                                <option>Japan</option>
+                                <option>Morocco</option>
+                                <option>Sri Lanka</option>
+                                <option>Botswana</option>
+                                <option>South Africa</option>
+                                <option>Kazakhstan</option>
+                                <option>New Zealand</option>
+                                <option>Benin</option>
+                                <option>Nigeria</option>
+                                <option>Mauritius</option>
+                                <option>Armenia</option>
+                                <option>Iran</option>
+                                <option>Kyrgyzstan</option>
+                                <option>Mongolia</option>
+                                <option>Macau S.A.R.</option>
+                                <option>Azerbaijan</option>
+                                <option>Cameroon</option>
+                                <option>Tunisia</option>
+                                <option>Singapore</option>
+                                <option>Burkina Faso</option>
+                                <option>India</option>
+                            </datalist>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <input type="text" class="col-md-12 p-0 form-control" id="searchintput" placeholder="Search..." />
+                        </div>
+                        <div class="col-md-3 p-0">
+                            <button type="button" class="btn btn-primary wrn-btn" id="btnsearch">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="main-content ">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#" data-toggle="tab" style="color: #fff;background-color:blue; text-decoration:none;padding:5px;margin-right: 780px;margin-left: -14px;">Search Result</a>
+        </li>
+        <li class="right " style="float: right;">
+            <b>
+                Tender
+                @Model.TenderDetails.FirstOrDefault().Rownumber
+            </b>
+            <span><b>-</b></span><b>
+                @Model.TenderDetails.LastOrDefault().Rownumber
+            </b>
+            <span><b>of</b></span>
+            <span><b>@pager.TotalPages </b></span>
+        </li>
+    </ul>
+    @foreach (DataList tender in Model.TenderDetails)
+    {
+        <div style="background-color:white" class="row">
+
+            <div class="col-12 p-2 ">
+
+                <h5>
+                    <a href="@Url.Action("Notice","Home",new{OurRefNo = @tender.OurRefNo})" style="text-decoration:none;"><span style="color:black; font-size:medium">@tender.Rownumber .</span>  @tender.AgencyName</a>
+                </h5>
+                @{
+
+                    if (tender.WorkDesc.Length > 100)
+                    {
+                        tender.WorkDesc = tender.WorkDesc.Substring(0, 100);
+                    }
+                }
+
+                <div style="float:right;">
+                    @{
+                        var DaysLeft = "";
+                        var currDate = (Convert.ToDateTime(tender.SubmDate) - DateTime.Now).Days;
+                        if (currDate <= 0)
+                        {
+                            DaysLeft = "Reffer To Document";
+                            <span class="text-danger" style="float:right;margin-right: 15px;margin-top: 54px;"><b>@DaysLeft</b></span>
+                        }
+                        else
+                        {
+                            DaysLeft = currDate.ToString().Split(".").FirstOrDefault();
+                            <div class="calendar" style="margin-right: 50px;">
+                                <div class="month background">day</div>
+                                <div class="day">LEFT</div>
+                                <div class="date">@DaysLeft</div>
+                            </div>
+                        }
+                    }
+
+
+                </div><br>
+                <h6>
+                    <a class="Work" maxlength="50"><span style="color:#ff7519;margin-left: 21px;">@tender.OurRefNo</span>  @tender.WorkDesc ...</a>
+                </h6>
+
+                <div class="row">
+
+                    <div style="margin-left: 22px;margin-top: 15px;">
+                        <span style="color:#337ab7"><b>Due Date :</b></span><b> @tender.SubmDate.ToString("").Split(' ').FirstOrDefault()</b>
+                    </div>
+                    <div style="margin-left: 130px;margin-top: 15px;">
+
+                        @{
+                            if (@tender.TenderAmount == 0)
+                            {
+                                <p><span style="color:#337ab7"><b>Tender Amount : </b></span><b>Refer Document</b></p>
+                            }
+                            else
+                            {
+
+                                <p><span style="color:#337ab7"><b>Tender Amount : </b></span><b>₹@tender.TenderAmount</b></p>
+
+                            }
+                        }
+
+                    </div>
+                    <div style="width:59%;margin-left:7px;">
+                        <span style=""><img src="~/location-outline.svg" style="width:6%;" class="pl-2"><b>@tender.Countryname</b></span>
+                    </div>
+
+                    <div style="margin-left: -261px;">
+                        <a href="@Url.Action("Notice","Home",new{OurRefNo = @tender.OurRefNo})" style="color:#337ab7"><button class="btn btn-primary"><b>View Notice </b></button></a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+    <div class="container">
+        @if (pager.TotalPages > 0)
+        {
+            <ul class="pagination justify-content-end">
+
+                @if (pager.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Home" asp-action="search" asp-route-page="1">First</a>
+                    </li>
+                    <li>
+                        <a class="page-link" asp-controller="Home" asp-action="search" asp-route-page="@(pager.CurrentPage - 1)">Previous</a>
+                    </li>
+                }
+
+                @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                {
+                    <li class="page-item @(pge == pager.CurrentPage ? "active":"")">
+                        <a class="page-link" asp-asp-controller="Home" asp-action="search" asp-route-page="@pge">@pge</a>
+                    </li>
+                }
+
+                @if (pager.CurrentPage < pager.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Home" asp-action="search" asp-route-page="@(pager.CurrentPage + 1)">Next</a>
+                    </li>
+                    <li>
+                        <a class="page-link" asp-controller="Home" asp-action="search" asp-route-page="@(pager.TotalPages)">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+
+    </div>
+</div>

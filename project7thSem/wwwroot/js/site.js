@@ -7,16 +7,14 @@
 $('#btnsearch').on('click', function () {
     alert($('#searchintput').val());
     $.ajax({
-        url: "/Home/search",
-        type: "post",
+        url: "/Home/index",
+        type: "get",
         data: {
             Search: $('#searchintput').val(), page: "1"
         },
         
         success: function () {
-            alert("hiii");
-            
-            
+            window.location.href = "/Home/search/" + $('#searchintput').val() + "?"
         },
         error: function (xhr, status, error) {
             alert(error);
