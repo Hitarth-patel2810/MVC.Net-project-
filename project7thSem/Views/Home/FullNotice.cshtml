@@ -1,0 +1,271 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+@{
+}
+@model SearchResult
+
+    <input type="hidden" id="Cemail" value="@Model.tenderFields.FirstOrDefault().Email">
+    <div class="main-content container">
+        <div class="row p-2">
+            
+            <h4 class ="col-md-10">@Model.tenderFields.FirstOrDefault().WorkDesc</h4><br />
+
+            
+            <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#exampleModal" id="btnModal">
+                Mail This Document
+            </button>
+        </div>
+    </div>
+    
+<div id="bodyhtml">
+
+    <div class="TbEffect  container  mb-4 border">
+
+
+        <div class="row p-2">
+            <h3 class="col-md-10 text-primary">
+                Tender Dreif
+            </h3>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Refrence Number
+            </span>
+            <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().OurRefNo
+            </span>
+        </div>
+        @{
+            if (@Model.tenderFields.FirstOrDefault().TenderNo != "")
+            {
+                <div class="row border-top">
+                    <span class="col-3 h5 pt-2">
+                        Tender Number
+                    </span>
+                    <span class="col-8 pt-2">
+                        @Model.tenderFields.FirstOrDefault().TenderNo
+                    </span>
+                </div>
+            }
+        }
+        
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Agency Name
+            </span>
+            <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().AgencyName
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Work Detail
+            </span>
+            <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().WorkDetail
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Tender Amount
+            </span>
+            <span class="col-8 pt-2">
+            @{
+                if (Model.tenderFields.FirstOrDefault().TenderAmount == 0)
+                {
+                        <p>Refer Document</p>
+                }
+                else
+                {
+
+                        <p>₹@Model.tenderFields.FirstOrDefault().TenderAmount</p>
+                }
+            }
+            </span>
+        </div>
+        @* <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                CPV
+            </span>
+            <span class="col-8 pt-2">
+                @{
+                    var regions = @Model.tenderFields.FirstOrDefault().CPV.Split(",");
+                    <ol>
+                        @foreach (var item in regions)
+                        {
+                            <li style="margin-left: -27px;">@Model.tenderFields.FirstOrDefault().CPV - @item</li>
+                        }
+                    </ol>
+                }
+            
+            </span>
+        </div> *@
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Financer Name
+            </span>
+            <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().FinancerName
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Geographical Region
+            </span>
+            <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().GeoRegion
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                City
+            </span>
+            <span class="col-8 pt-2">
+                @{
+                    if (@Model.tenderFields.FirstOrDefault().City == null)
+                    {
+                        <p>-----</p>
+                    }
+                    else
+                    {
+
+                        <p>@Model.tenderFields.FirstOrDefault().City</p>
+                    }
+                }
+            
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Submition Date
+            </span>
+            <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().SubmDate
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Country Name
+            </span>
+            <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().Countryname
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Country Name
+            </span>
+            <span class="col-8 pt-2">
+                @{
+                    var regions = Model.tenderFields.FirstOrDefault().PoliRegionName.Split(",");
+                    <ol>
+                        @foreach (var item in regions)
+                        {
+                            <li style="margin-left: -27px;">@item</li>
+                        }
+                    </ol>
+                }
+            </span>
+        </div>
+
+    </div>
+
+    <div class="TbEffect  container  mb-4 border">
+
+
+        <div class="row p-2">
+            <h3 class="col-md-10 text-primary">
+                Person Detaills
+            </h3>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Name
+            </span>
+            <span class="col-8 pt-2">
+                @{
+                    if (@Model.tenderFields.FirstOrDefault().ContactPerson == "")
+                    {
+                        <p>-----</p>
+                    }
+                    else
+                    {
+
+                        <p>@Model.tenderFields.FirstOrDefault().ContactPerson</p>
+                    }
+                }
+            
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Email ID
+            </span>
+            <span class="col-8 pt-2">
+                @{
+                    if (@Model.tenderFields.FirstOrDefault().ContactEmail == "")
+                    {
+                        <p>-----</p>
+                    }
+                    else
+                    {
+
+                        <p>@Model.tenderFields.FirstOrDefault().ContactEmail</p>
+                    }
+                }
+            
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Mobile Number
+            </span>
+            <span class="col-8 pt-2">
+                @{
+                    if (@Model.tenderFields.FirstOrDefault().ContactPhone == "")
+                    {
+                        <p>-----</p>
+                    }
+                    else
+                    {
+
+                        <p>@Model.tenderFields.FirstOrDefault().ContactPhone</p>
+                    }
+                }
+            
+            </span>
+        </div>
+        <div class="row border-top">
+            <span class="col-3 h5 pt-2">
+                Address
+            </span>
+            <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().Address
+            </span>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script>
+        $('#btnModal').on('click', function () {
+            alert('hiiii');
+            $.ajax({
+                url: "/Home/mailsend",
+                type: "post",
+                data: { email: $('#Cemail').val(), body: $('#bodyhtml').html(), subjectline: "Requested Tender Document" },
+                success: function (Result) {
+                    toastr.success("Mail sent successfully");
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+            })
+        })
+    </script>
+    }

@@ -1,0 +1,284 @@
+﻿@using project7thSem.Model;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model SearchResult
+
+<header class="header fixed-top">
+    <nav>
+        <div class="row">
+            <div class="container">
+                <div class="row" style="margin: 15px;">
+                    <a class="float-left col-md-3" href="/">
+                        <img src="~/TenderDetail.png" asp-controller="Home" asp-action="Index" style="width: 85%;" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="main-content container row">
+    <h4>@Model.tenderFields.FirstOrDefault().WorkDesc</h4><br />
+
+</div>
+<br />
+<div class="tbnotice container border ">
+    <h3 class="text-primary">Tender Notice</h3>
+    <div class="row border-top">
+        <span class="col-4 h5 pt-2">
+            TDR
+        </span>
+        <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().OurRefNo
+        </span>
+    </div>
+    <div class="row border-top">
+        <span class="col-4 h5 pt-2">
+            Agcncy Name
+        </span>
+        <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().AgencyName
+        </span>
+    </div>
+    <div class="row border-top">
+        <span class="col-4 h5 pt-2">
+            Tender Amount
+        </span>
+        <span class="col-8 pt-2">
+            @{
+                if (Model.tenderFields.FirstOrDefault().TenderAmount == 0)
+                {
+                        <p>Refer Document</p>
+                }
+                else
+                {
+
+                        <p>₹@Model.tenderFields.FirstOrDefault().TenderAmount</p>
+                }
+            }
+        </span>
+    </div>
+    <div class="row border-top">
+        <span class="col-4 h5 pt-2">
+            Country
+        </span>
+        <span class="col-8 pt-2">
+            @Model.tenderFields.FirstOrDefault().Name
+        </span>
+    </div>
+    <div class="row border-top">
+
+        <span class="col-4 h5 pt-2">
+            Full Notice
+        </span>
+        <span class="col-8 pt-2">
+            <button class="btn btn-sm btn-primary m-2" id="btnFullNotice">View</button>
+        </span>
+    </div>
+
+</div>
+
+
+
+<div class="modal fade show" data-bs-backdrop="static" data-bs-keyboard="false" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content rounded-10">
+            <div class="content-text p-4">
+                <h3>Registration form</h3>
+                <form id="MailVerify">
+                    <p>
+                        All Fields are required
+                        .
+                    </p>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" id="txtname" placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input type="text" class="form-control" id="txtmobile" maxlength="10" placeholder="Enter number">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" id="txtemail" onblur="ValidateEmail()" placeholder="Enter email">
+                    </div>
+                    <div class="hidden" id="btnVerify">
+                        <div class="modal-footer">
+                            <input type="text" class="form-control" id="inputOtp" placeholder="Enter OTP">
+                            <button type="button" id="toVerify" class="btn btn-primary btn-block">Submit</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="hdn_email" name="emailhdn">
+                    <input type="hidden" id="hdn_otp" name="otphdn">
+                    <input type="hidden" id="hdn_userid" name="idhdn">
+                    <input type="hidden" id="hdn_tid" name="ourrefno" value="@Model.tenderFields.FirstOrDefault().OurRefNo">
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="popsubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                 <h5 class="modal-title" id="exampleModalLabel">Upgrade for Full Tender Details</h5> 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-0">
+
+                @* You've hit the maximum limit for free access to tender details. To see more information, you'll need to subscribe or become a paid member. *@
+                <div class="row d-flex justify-content-center align-items-center rows">
+
+                    <div class="col-md-10">
+                        <div class="card">
+                            <div class="text-center">
+                                <img src="https://i.imgur.com/Dh7U4bp.png" width="200">
+                                <span class="d-block mt-3">You've hit the maximum limit for free access to tender details. To see more information, you'll need to subscribe or become a paid member. <br> promotions and discounts of our store</span>
+                                <div class="mx-5">
+                                    <div class="input-group mb-3 mt-4">
+                                        @* <input type="text" class="form-control" placeholder="Enter email" aria-label="Recipient's username" aria-describedby="button-addon2"> *@
+                                        <button class="btn btn-success border" style="margin-left: 109px;background-color:#F9A826" type="button" id="button-addon2">Subscribe</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                @* <button type="button" class="btn btn-primary">Subscribe Now</button> *@
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        $('#btnFullNotice').on('click', function () {
+            $('#modalForm').modal('show');
+            $('#inputOtp').hide();
+            document.getElementById('toVerify').innerHTML = "Submit";
+        })
+
+
+        function ValidateEmail() {
+            var email = document.getElementById("txtemail").value.trim();
+            if (email != "") {
+                var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+                if (!expr.test(email)) {
+                    toastr.error("Please Enter Valid Email");
+                    document.getElementById("txtemail").value = "";
+                }
+            }
+
+        }
+
+        $("#txtmobile").on("keypress", function (event) {
+            if (event.which < 48 || event.which > 58) {
+                return false;
+            }
+        });
+
+
+        $("#toVerify").on('click', function (e) {
+            if (document.getElementById('toVerify').innerHTML.toString() == "Submit") {
+                var tValidate = true;
+                if (tValidate) {
+                    if ($("#txtname").val() == "") {
+                        toastr.error("Please Enter Name");
+                        tValidate = false;
+                        $("#txtname").focus();
+                    }
+                }
+                if (tValidate) {
+                    if ($("#txtemail").val() == "") {
+                        toastr.error("Please Enter Email Id");
+                        tValidate = false;
+                        $("#txtemail").focus();
+                    }
+                }
+                if (tValidate) {
+                    if ($("#txtmobile").val() == "") {
+                        toastr.error("Please Enter Phone Number");
+                        tValidate = false;
+                        $("#txtmobile").focus();
+                    }
+                }
+                if (tValidate) {
+
+                    $.ajax({
+                        url: "/Home/otpsend",
+                        type: "GET",
+                        data: { name: $('#txtname').val(), mobile: $('#txtmobile').val(), email: $('#txtemail').val(), tno: $('#hdn_tid').val() },
+                        success: function (Result) {
+                            if (Result.id == 1) {
+                                $("#hdn_email").val(Result.email_data);
+                                $("#hdn_otp").val(Result.otp);
+                                $("#hdn_userid").val(Result.userid);
+                                $('#inputOtp').show();
+
+                                document.getElementById('toVerify').innerHTML = "Verify";
+                            }
+                            // else if (Result.id == 2) {
+                            //     $('#popsubscribe').modal('show');
+                            // }
+
+                        },
+                        error: function (xhr, status, error) {
+                            alert(error);
+                        }
+                    })
+                }
+            }
+            else {
+                alert($('#hdn_otp').val());
+                var tValidate = true;
+                if (tValidate) {
+                    if ($("#inputOtp").val() == "") {
+                        toastr.error("Please Enter OTP");
+                        tValidate = false;
+                        $("#inputOtp").focus();
+                    }
+
+                }
+                if (tValidate) {
+                    if ($("#inputOtp").val() != $("#hdn_otp").val()) {
+                        toastr.error("Please Enter Valid OTP");
+                        tValidate = false;
+                        $("#inputOtp").focus();
+                    }
+                }
+
+                if (tValidate) {
+                    $.ajax({
+                        url: "/Home/Email_Verify",
+                        type: "GET",
+                        data: { email: $('#hdn_email').val(), tno: $('#hdn_tid').val(), mobile: $('#txtmobile').val(), UserID: $('#hdn_userid').val() },
+                        success: function (result) {
+                            if (result.id == 1) {
+                                window.location.href = "/Home/FullNotice/" + result.userid+"?";
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            alert(error);
+                        }
+                    })
+                }
+            }
+        });
+
+
+    </script>
+
+}

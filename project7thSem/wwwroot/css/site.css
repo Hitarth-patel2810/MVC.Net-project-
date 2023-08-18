@@ -1,0 +1,157 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.body {
+    background-color: rgb(251, 239, 223);
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+
+.header {
+    background-color: white;
+    padding: 0 5px;
+}
+
+a.header {
+    color: rgb(0, 0, 0);
+}
+
+.details {
+    padding: 15px;
+    background-color: #ffffff;
+    list-style-type: none;
+}
+
+/*.topnav {
+    overflow: hidden;
+    padding: 22px;
+}
+
+    .topnav a {
+        padding: 5px 15px;
+        color: black;
+    }
+
+        .topnav a:hover {
+            background-color: rgb(251, 174, 73);
+            color: #ffffff;
+            border-radius: 20px;
+        }*/
+
+.main-content {
+    margin-top: 150px
+}
+
+/*.hidden {
+    visibility: hidden;
+}*/
+
+
+
+
+.col-12 {
+    background-color: #fff;
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+.Work {
+    text-decoration: none;
+}
+/*calender*/
+.calendar {
+    margin: 20px auto;
+    width: 100px;
+    border: 1px solid #D5D5D5;
+    text-align: center;
+    box-shadow: 0px 10px 25px #ABABAB;
+    .background
+
+{
+    background: #6AB6E0;
+    color: white;
+}
+
+.month {
+    text-transform: uppercase;
+    font-size: 22px;
+}
+
+.day {
+    font-size: 20px;
+    padding-top: 4px;
+
+}
+
+.date {
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+}
+/*pop*/
+.modal-body {
+    background-color: #F9A826;
+}
+.rows {
+    height: 100vh;
+}
+}
+
+.card {
+    padding: 20px;
+    background-color: #eee;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #f9a826;
+    outline: 0;
+    box-shadow: none;
+}
+
+
+.border-rad {
+    border-top-right-radius: 28px;
+    border-bottom-right-radius: 28px;
+    color: #fff;
+    background-color: #f9a826;
+    border-color: #f9a826;
+}
+
+
+
+
+    .border-rad:hover {
+        background-color: #f9a826;
+        border-color: #f9a826;
+    }
