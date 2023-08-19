@@ -7,6 +7,20 @@
 }
 @model SearchResult
 
+<header class="header fixed-top">
+    <nav>
+        <div class="row">
+            <div class="container">
+                <div class="row" style="margin: 15px;">
+                    <a class="float-left col-md-3" href="/">
+                        <img src="~/TenderDetail.png" asp-controller="Home" asp-action="Index" style="width: 85%;" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
     <input type="hidden" id="Cemail" value="@Model.tenderFields.FirstOrDefault().Email">
     <div class="main-content container">
         <div class="row p-2">

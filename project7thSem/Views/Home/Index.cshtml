@@ -5,11 +5,15 @@
 
     Pager pager = new Pager();
     int pageNo = 0;
+    int i = 0;
+    int j = 0;
 
     if (ViewBag.Pager != null)
     {
         pager = ViewBag.Pager;
         pageNo = pager.CurrentPage;
+        i = (pageNo * 10) - 9;
+        j = i + 9;
     }
 
 
@@ -115,10 +119,10 @@
         <li class="right " style="float: right;">
             <b>
                 Tender
-                @Model.TenderDetails.FirstOrDefault().Rownumber
+                @i
             </b>
             <span><b>-</b></span><b>
-                @Model.TenderDetails.LastOrDefault().Rownumber
+                @j
             </b>
             <span><b>of</b></span>
             <span><b>@pager.TotalPages </b></span>
@@ -131,7 +135,7 @@
             <div class="col-12 p-2 ">
 
                 <h5>
-                    <a href="@Url.Action("Notice","Home",new{OurRefNo = @tender.OurRefNo})" style="text-decoration:none;"><span style="color:black; font-size:medium">@tender.Rownumber .</span>  @tender.AgencyName</a>
+                    <a href="@Url.Action("Notice","Home",new{OurRefNo = @tender.OurRefNo})" style="text-decoration:none;"><span style="color:black; font-size:medium">@i .</span>  @tender.AgencyName</a>
                 </h5>
                 @{
 
@@ -200,6 +204,7 @@
             </div>
 
         </div>
+        i++;
     }
 
     <div class="container">

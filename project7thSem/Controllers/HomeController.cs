@@ -30,7 +30,7 @@ namespace project7thSem.Controllers
         {
                 var model = new SearchResult();
 
-                var d = _connectionClass.Select("SELECT ROW_NUMBER() over(order by gi.TenderAmount DESC) \r\nas Rownumber,OurRefNo,TenderAmount,SubmDate,WorkDesc,AgencyName,\r\n(SELECT Name fROM Country_Mast cm WHERE cm.CountryID=gi.CountryId) as Countryname FROM GlobalFreshTenderInfo gi ORDER BY TenderAmount DESC");
+                var d = _connectionClass.Select(" SELECT  OurRefNo,TenderAmount,SubmDate,WorkDesc,AgencyName,\r\n (SELECT Name fROM Country_Mast cm WHERE cm.CountryID=gi.CountryId) \r\n as Countryname FROM GlobalFreshTenderInfo gi ORDER BY TenderAmount DESC ");
 
                 model.TenderDetails = Helper.ConvertDataTable<DataList>(d);
 
@@ -51,7 +51,11 @@ namespace project7thSem.Controllers
         public IActionResult search(string Search,int page = 1)
         {
             var model = new SearchResult();
+<<<<<<< HEAD
+            var query = _connectionClass.Select($" SELECT OurRefNo,TenderAmount,SubmDate,WorkDesc,AgencyName,\r\n (SELECT Name fROM Country_Mast cm WHERE cm.CountryID=gi.CountryId) \r\n as Countryname FROM GlobalFreshTenderInfo gi  where FREETEXT (SearchText,'\"{Search}\"') ORDER BY TenderAmount DESC");
+=======
             var query = _connectionClass.Select($"SELECT ROW_NUMBER() over(order by gi.TenderAmount DESC) \r\nas Rownumber,OurRefNo,TenderAmount,SubmDate,WorkDesc,AgencyName,\r\n(SELECT Name fROM Country_Mast cm WHERE cm.CountryID=gi.CountryId) \r\nas Countryname FROM GlobalFreshTenderInfo gi  where FREETEXT(SearchText,'\"{Search}\"') ORDER BY TenderAmount DESC");
+>>>>>>> a1d580e0186375c0605353efd6cbc2aaa645f84d
             model.TenderDetails = Helper.ConvertDataTable<DataList>(query);
 
             int TenderCount = model.TenderDetails.Count();
