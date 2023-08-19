@@ -8,21 +8,15 @@
 
     Pager pager = new Pager();
     int pageNo = 0;
-<<<<<<< HEAD
     int i = 0;
     int j = 0;
-=======
->>>>>>> a1d580e0186375c0605353efd6cbc2aaa645f84d
-
     if (ViewBag.Pager != null)
     {
         pager = ViewBag.Pager;
         pageNo = pager.CurrentPage;
-<<<<<<< HEAD
+
         i = (pageNo * 10) - 9;
         j = i + 9;
-=======
->>>>>>> a1d580e0186375c0605353efd6cbc2aaa645f84d
     }
 }
 
@@ -123,34 +117,24 @@
         <li class="right " style="float: right;">
             <b>
                 Tender
-<<<<<<< HEAD
-                @i
+             @i
             </b>
             <span><b>-</b></span><b>
                 @j
-=======
-                @Model.TenderDetails.FirstOrDefault().Rownumber
-            </b>
-            <span><b>-</b></span><b>
-                @Model.TenderDetails.LastOrDefault().Rownumber
->>>>>>> a1d580e0186375c0605353efd6cbc2aaa645f84d
+
             </b>
             <span><b>of</b></span>
             <span><b>@pager.TotalPages </b></span>
         </li>
     </ul>
-    @foreach (DataList tender in Model.TenderDetails)
+    @foreach(DataList tender in Model.TenderDetails)
     {
         <div style="background-color:white" class="row">
 
             <div class="col-12 p-2 ">
 
                 <h5>
-<<<<<<< HEAD
                     <a href="@Url.Action("Notice","Home",new{OurRefNo = @tender.OurRefNo})" style="text-decoration:none;"><span style="color:black; font-size:medium">@i .</span>  @tender.AgencyName</a>
-=======
-                    <a href="@Url.Action("Notice","Home",new{OurRefNo = @tender.OurRefNo})" style="text-decoration:none;"><span style="color:black; font-size:medium">@tender.Rownumber .</span>  @tender.AgencyName</a>
->>>>>>> a1d580e0186375c0605353efd6cbc2aaa645f84d
                 </h5>
                 @{
 
@@ -219,12 +203,9 @@
             </div>
 
         </div>
-<<<<<<< HEAD
         i++;
-=======
->>>>>>> a1d580e0186375c0605353efd6cbc2aaa645f84d
-    }
 
+        }
     <div class="container">
         @if (pager.TotalPages > 0)
         {
